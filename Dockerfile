@@ -1,3 +1,4 @@
+ARG VNC_PWD
 FROM debian:sid
 RUN apt update
 RUN useradd -m -u 1000 user
