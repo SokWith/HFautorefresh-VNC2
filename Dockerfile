@@ -7,7 +7,7 @@ ARG VNC_PWD
 RUN mkdir -p /root/.vnc /home/user/.vnc
 RUN echo $VNC_PWD | vncpasswd -f > /root/.vnc/passwd
 RUN echo $VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
-RUN chmod -R a+rw /root/.vnc/ /home/user/.vnc/
+RUN chmod -R a+rw /root/.vnc /home/user/.vnc
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
 CMD vncserver -SecurityTypes None -geometry 1366x768 && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
