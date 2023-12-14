@@ -1,5 +1,5 @@
 ---
-title: Free Vps 1
+title: VNC-Server
 emoji: 🐨
 colorFrom: green
 colorTo: pink
