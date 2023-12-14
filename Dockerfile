@@ -8,4 +8,4 @@ RUN echo $VNC_PWD | vncpasswd -f > /home/user/vnc_password
 RUN chmod u+r,g+r,o+r /home/user/vnc_password
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
-CMD vncserver -SecurityTypes None -PasswordFile /home/user/vnc_password -geometry 1366x768 && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
+CMD vncserver -SecurityTypes None −PasswordFile /home/user/vnc_password -geometry 1366x768 && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
