@@ -9,4 +9,4 @@ RUN echo $VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
 RUN chmod -R 777 /home/user/.vnc /tmp
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
-CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry 1920x1080 && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
+CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry 800x600 && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
