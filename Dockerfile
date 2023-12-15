@@ -1,6 +1,7 @@
 FROM debian:sid
 RUN apt update
 RUN useradd -m -u 1000 user
+RUN chown root:shadow /etc/shadow
 RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
 RUN apt remove xfce4-screensaver -y
 RUN apt remove gnome-screensaver -y
