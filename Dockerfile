@@ -2,6 +2,10 @@ FROM debian:sid
 RUN apt update
 RUN useradd -m -u 1000 user
 RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
+RUN apt remove gnome-screensaver -y
+RUN apt remove mate-screensaver -y
+RUN apt remove cinnamon-screensaver -y
+RUN apt remove light-locker -y
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 ARG VNC_RESOLUTION
