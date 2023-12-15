@@ -6,8 +6,7 @@ RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 ARG VNC_RESOLUTION
 RUN --mount=type=secret,id=VNC_PWD,mode=0444,required=true \
-   VNC_PWD=$(cat /run/secrets/VNC_PWD)
-RUN echo $VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
+   cat /run/secrets/VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
 RUN chmod -R 777 /home/user/.vnc /tmp
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
