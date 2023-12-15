@@ -1,11 +1,12 @@
 FROM debian:sid
 RUN apt update
 RUN useradd -m -u 1000 user
-RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git -y
+RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
-ARG VNC_PWD
 ARG VNC_RESOLUTION
+RUN --mount=type=secret,id=VNC_PWD,mode=0444,required=true \
+   VNC_PWD=$(cat /run/secrets/VNC_PWD)
 RUN echo $VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
 RUN chmod -R 777 /home/user/.vnc /tmp
 ENV HOME=/home/user \
