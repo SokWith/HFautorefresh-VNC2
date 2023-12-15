@@ -5,8 +5,8 @@ RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 h
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 ARG VNC_RESOLUTION
-RUN --mount=type=secret,id=VNC_PWD,mode=0444,required=true \
-   cat /run/secrets/VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
+RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
+   cat /run/secrets/VNC_PASSWORD | vncpasswd -f > /home/user/.vnc/passwd
 RUN chmod -R 777 /home/user/.vnc /tmp
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
