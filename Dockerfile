@@ -1,8 +1,8 @@
 FROM debian:sid
-RUN apt update
 RUN useradd -m -u 1000 user
 RUN chown root:shadow /etc/shadow
-RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
+RUN apt update
+RUN apt install xfce4-terminal lxqt lightdm xfce4-goodies xfce4-appmenu-plugin xfce4-eyes-plugin xfce4-indicator-plugin xfce4-mpc-plugin  aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
 RUN apt remove xscreensaver-data --no-install-recommends -y
 RUN apt remove xscreensaver --no-install-recommends -y
 RUN apt remove light-locker --no-install-recommends -y
