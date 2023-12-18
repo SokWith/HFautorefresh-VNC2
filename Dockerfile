@@ -4,9 +4,8 @@ RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras aqemu
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN useradd -d /home/user -s /bin/bash -m -u 1000 user
-RUN chown user -R /home/user
-RUN echo "cd ~" > /home/user/.bashrc
-RUN chown root:shadow /etc/shadow
+RUN chown user -R /home/user; echo "cd ~" > /home/user/.bashrc;
+RUN chown root:shadow /etc/shadow; chmod u=r,g=r /etc/shadow;
 RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "配置不存在，无视"
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
