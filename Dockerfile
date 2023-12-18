@@ -2,8 +2,29 @@ FROM debian:sid
 RUN useradd -m -u 1000 user
 RUN chown root:shadow /etc/shadow
 RUN apt update
-RUN apt install xfce4-terminal lxqt lightdm xfce4-goodies xfce4-appmenu-plugin xfce4-eyes-plugin xfce4-indicator-plugin xfce4-mpc-plugin  aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
-RUN apt install xdotool -y
+RUN apt install -y xfce4-terminal \
+lxqt lightdm xfce4-goodies \
+xfce4-appmenu-plugin \
+xfce4-eyes-plugin \
+xfce4-indicator-plugin \
+xfce4-mpc-plugin  \
+aqemu \
+sudo \
+curl \
+wget \
+aria2 \
+qemu-system-x86 \
+htop \
+chromium \
+screen \
+tigervnc-standalone-server \
+python3-pip \
+python3-websockify \
+python3 \
+git \
+fuse \
+libfuse2 \
+xdotool
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 ARG VNC_RESOLUTION
