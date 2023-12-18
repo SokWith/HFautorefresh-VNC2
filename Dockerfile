@@ -5,7 +5,7 @@ RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN useradd -m -u 1000 user
 RUN chown root:shadow /etc/shadow
-RUN chsh -s /bin/bash username
+RUN chsh -s /bin/bash user
 RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
