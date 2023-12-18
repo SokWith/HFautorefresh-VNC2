@@ -2,10 +2,8 @@ FROM debian:sid
 RUN apt update
 RUN useradd -m -u 1000 user
 RUN chown root:shadow /etc/shadow
-RUN apt install xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 -y
-RUN apt remove light-locker -y
-RUN apt remove xscreensaver-data -y
-RUN apt remove xscreensaver -y
+RUN apt install -y xfce4-terminal lxde aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 xdotool
+RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN apt autoclean && apt autoremove 
 RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart
 RUN git clone https://github.com/novnc/noVNC.git noVNC
