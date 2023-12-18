@@ -7,7 +7,7 @@ RUN useradd -d /home/user -s /bin/bash -m -u 1000 user
 RUN chown user -R /home/user
 RUN echo "cd ~" > /home/user/.bashrc
 RUN chown root:shadow /etc/shadow
-RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart
+RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "配置不存在，无视"
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 RUN chmod -R 777 /home/user/.vnc /tmp
