@@ -1,4 +1,5 @@
 FROM debian:sid
+RUN add-apt-repository ppa:alexx2000/xfce
 RUN apt update
 RUN apt install -y vim bash xfce4-terminal xubuntu-desktop aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 xdotool
 RUN apt remove -y lxlock
