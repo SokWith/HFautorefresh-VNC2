@@ -7,6 +7,7 @@ RUN apt remove xscreensaver-data -y
 RUN apt remove xscreensaver -y
 RUN apt remove light-locker -y
 RUN apt autoclean && apt autoremove
+RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 ARG VNC_RESOLUTION
