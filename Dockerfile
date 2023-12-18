@@ -9,11 +9,11 @@ RUN chown root:shadow /etc/shadow
 RUN sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
+RUN chmod -R 777 /home/user/.vnc /tmp
 ARG VNC_RESOLUTION
 RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
    echo 'user:$(cat /run/secrets/VNC_PASSWORD)' | chpasswd && \
    cat /run/secrets/VNC_PASSWORD | vncpasswd -f > /home/user/.vnc/passwd
-RUN chmod -R 777 /home/user/.vnc /tmp
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
 CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
