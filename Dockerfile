@@ -7,7 +7,10 @@ RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
     echo 'user:$(cat /run/secrets/VNC_PASSWORD)' | chpasswd
 RUN pwconv
 RUN apt update
-RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 xdotool
+RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
+    aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
+    tigervnc-standalone-server python3-pip python3-websockify \
+    python3 git fuse libfuse2 xdotool
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
