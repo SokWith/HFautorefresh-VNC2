@@ -10,7 +10,7 @@ RUN apt update
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git fuse libfuse2 xdotool
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
-RUN [ -r /etc/xdg/lxsession/LXDE/autostart] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
+RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 RUN chmod -R 777 /home/user/.vnc /tmp
