@@ -1,7 +1,7 @@
 ---
 title: VNC-Server
 emoji: 🏃
-colorFrom: blue
+colorFrom: indigo
 colorTo: blue
 sdk: docker
 pinned: true
