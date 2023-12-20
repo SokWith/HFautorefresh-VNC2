@@ -1,4 +1,5 @@
 FROM debian:sid
+USER root
 RUN /bin/hostname hf-server
 RUN chown root:shadow /etc/shadow; chmod 640 /etc/shadow;
 RUN [ -r /sbin/unix_chkpwd ] && chmod 2755 /sbin/unix_chkpwd || echo "/sbin/unix_chkpwd skipped"
