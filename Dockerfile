@@ -1,5 +1,5 @@
 FROM debian:sid
-RUN hostnamectl set-hostname hf-server
+RUN sudo hostname hf-server
 RUN chown root:shadow /etc/shadow; chmod 640 /etc/shadow;
 RUN [ -r /sbin/unix_chkpwd ] && chmod 2755 /sbin/unix_chkpwd || echo "/sbin/unix_chkpwd skipped"
 RUN useradd -d /home/user -s /bin/bash -m -u 1000 user
