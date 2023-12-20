@@ -1,5 +1,4 @@
 FROM debian:sid
-RUN sudo hostname hf-server
 RUN chown root:shadow /etc/shadow; chmod 640 /etc/shadow;
 RUN [ -r /sbin/unix_chkpwd ] && chmod 2755 /sbin/unix_chkpwd || echo "/sbin/unix_chkpwd skipped"
 RUN useradd -d /home/user -s /bin/bash -m -u 1000 user
@@ -17,6 +16,7 @@ RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
 RUN (gsettings set org.gnome.desktop.session idle-delay 0; gsettings set org.gnome.desktop.screensaver lock-enabled false;) || exit 0;
 # RUN chmod -R o+r / 2>/dev/null; exit 0; 
+RUN hostname hf-server || echo 'failed to set hostname'
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 RUN chmod -R 777 /home/user/.vnc /tmp
