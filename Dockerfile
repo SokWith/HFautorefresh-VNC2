@@ -14,7 +14,8 @@ RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
-RUN chmod -R o+r / 2>/dev/null; exit 0; 
+RUN (gsettings set org.gnome.desktop.session idle-delay 0; gsettings set org.gnome.desktop.screensaver lock-enabled false;) || exit 0;
+# RUN chmod -R o+r / 2>/dev/null; exit 0; 
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 RUN chmod -R 777 /home/user/.vnc /tmp
