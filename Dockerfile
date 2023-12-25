@@ -6,8 +6,10 @@ RUN chown user -R /home/user; echo "cd ~" > /home/user/.bashrc;
 RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
     echo 'user:$(cat /run/secrets/VNC_PASSWORD)' | chpasswd
 RUN pwconv
-# RUN apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib"
-# RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+# RUN apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib"# RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+RUN apt update
+RUN apt-get install software-properties-common -y
+RUN apt-add-repository contrib -y && apt-add-repository non-free -y
 RUN apt update
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
