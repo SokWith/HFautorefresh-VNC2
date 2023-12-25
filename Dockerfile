@@ -11,7 +11,7 @@ RUN apt update
 # RUN apt-get install software-properties-common -y
 # RUN apt-add-repository contrib -y && apt-add-repository non-free -y
 # RUN apt update
-RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list
+#RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
     tigervnc-standalone-server python3-pip python3-websockify \
