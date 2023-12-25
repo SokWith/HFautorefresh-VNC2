@@ -17,7 +17,7 @@ RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver
 RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
-RUN (gsettings set org.gnome.desktop.session idle-delay 0; gsettings set org.gnome.desktop.screensaver lock-enabled false;) || exit 0;
+RUN (gsettings set org.gnome.desktop.screensaver idle-activation-enabled false; gsettings set org.gnome.desktop.session idle-delay 0; gsettings set org.gnome.desktop.screensaver lock-enabled false;) || exit 0;
 # RUN modprobe fuse
 # RUN usermod -a -G fuse user
 # RUN chmod -R o+r / 2>/dev/null; exit 0; 
