@@ -15,7 +15,8 @@ RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     python3 git fuse libfuse2 xdotool
 #    virtualbox
 RUN apt remove -y lxlock
-RUN apt remove -y light-locker xscreensaver-data xscreensaver
+RUN apt remove -y light-locker xscreensaver-data xscreensaver 
+RUN apt remove -y mate-screensaver
 RUN [ -r /etc/xdg/lxsession/LXDE/autostart ] && sed -i '/@xscreensaver -no-splash/d' /etc/xdg/lxsession/LXDE/autostart || echo "/etc/xdg/lxsession/LXDE/autostart skipped"
 RUN (gsettings set org.gnome.desktop.screensaver idle-activation-enabled false; gsettings set org.gnome.desktop.session idle-delay 0; gsettings set org.gnome.desktop.screensaver lock-enabled false;) || exit 0;
 # RUN modprobe fuse
