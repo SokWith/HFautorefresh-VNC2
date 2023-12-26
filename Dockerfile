@@ -11,7 +11,7 @@ RUN pwconv
 # RUN apt-get install software-properties-common -y
 # RUN apt-add-repository contrib -y && apt-add-repository non-free -y
 # RUN apt update
-RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list.d/*.list
+# RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list.d/*
 RUN apt update
 RUN apt -y full-upgrade
 RUN apt install -y --no-install-recommends extrepo
