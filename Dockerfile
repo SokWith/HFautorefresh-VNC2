@@ -30,6 +30,13 @@ RUN (gsettings set org.gnome.desktop.screensaver idle-activation-enabled false; 
 # RUN usermod -a -G fuse user
 # RUN chmod -R o+r / 2>/dev/null; exit 0; 
 RUN hostname hf-server || echo 'failed to set hostname'
+RUN git clone https://github.com/novnc/noVNC.git noVNC
+RUN mkdir -p /home/user/.vnc
+RUN chmod -R 777 /home/user/.vnc /tmp
+RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
+    cat /run/secrets/VNC_PASSWORD | vncpasswd -f > /home/user/.vnc/passwd
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
 
 # 假设pushcookie文件夹在当前目录下
 RUN mkdir -p /home/user/Desktop/myshell
@@ -43,13 +50,6 @@ USER user
 # 复制 /tmp/.config/chromium 目录到 /home/user/.config/ 目录，保留文件属性和链接
 RUN cp -a /tmp/.config/chromium /home/user/.config/
 
-RUN git clone https://github.com/novnc/noVNC.git noVNC
-RUN mkdir -p /home/user/.vnc
-RUN chmod -R 777 /home/user/.vnc /tmp
-RUN --mount=type=secret,id=VNC_PASSWORD,mode=0444,required=true \
-    cat /run/secrets/VNC_PASSWORD | vncpasswd -f > /home/user/.vnc/passwd
-ENV HOME=/home/user \
-    PATH=/home/user/.local/bin:$PATH
 ARG VNC_RESOLUTION
 CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
 
