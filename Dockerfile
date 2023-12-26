@@ -13,10 +13,13 @@ RUN pwconv
 # RUN apt update
 RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list.d/*
 RUN apt update
+RUN apt full-upgrade
+RUN apt install --no-install-recommends extrepo
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
     tigervnc-standalone-server python3-pip python3-websockify \
-    python3 git fuse libfuse2 xdotool virtualbox
+    python3 git fuse libfuse2 xdotool
+    # virtualbox
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver 
 RUN apt remove -y mate-screensaver
