@@ -15,6 +15,7 @@ RUN sed -r -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list.d/*
 RUN apt update
 RUN apt -y full-upgrade
 RUN apt install -y --no-install-recommends extrepo
+RUN echo -n "- contrib\n- non-free" >> /etc/extrepo/config.yaml
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
     tigervnc-standalone-server python3-pip python3-websockify \
