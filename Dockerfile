@@ -30,6 +30,19 @@ RUN (gsettings set org.gnome.desktop.screensaver idle-activation-enabled false; 
 # RUN usermod -a -G fuse user
 # RUN chmod -R o+r / 2>/dev/null; exit 0; 
 RUN hostname hf-server || echo 'failed to set hostname'
+
+# 假设pushcookie文件夹在当前目录下
+RUN mkdir -p /home/user/Desktop/myshell
+ADD pushcookie/ /home/user/Desktop/myshell/
+# 使用RUN指令执行chmod命令给予*.sh文件可执行权限
+RUN chmod 777 /home/user/Desktop/myshell/*.sh
+RUN tar -xzf /home/user/Desktop/myshell/chromeset.tar.gz -C /tmp/ 
+
+# 切换到 user 用户
+USER user
+# 复制 /tmp/.config/chromium 目录到 /home/user/.config/ 目录，保留文件属性和链接
+RUN cp -a /tmp/.config/chromium /home/user/.config/
+
 RUN git clone https://github.com/novnc/noVNC.git noVNC
 RUN mkdir -p /home/user/.vnc
 RUN chmod -R 777 /home/user/.vnc /tmp
@@ -39,3 +52,8 @@ ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
 ARG VNC_RESOLUTION
 CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
+
+# 切换到 user 用户
+USER user
+# 复制 /tmp/.config/chromium 目录到 /home/user/.config/ 目录，保留文件属性和链接
+RUN cp -a /tmp/.config/chromium /home/user/.config/
