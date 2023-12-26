@@ -65,7 +65,7 @@ do
   # Wait for 15 seconds
   wait_for 15
   # Move the mouse and click the left button
-  move_and_click 80 145
+  move_and_click 80 210
   # Wait for 5 seconds
   wait_for 5
   # Load the second web page
