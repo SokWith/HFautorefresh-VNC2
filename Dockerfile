@@ -16,8 +16,7 @@ RUN apt update
 RUN apt install -y vim bash xfce4-terminal mate-desktop-environment-extras \
     aqemu sudo curl wget aria2 qemu-system-x86 htop chromium screen \
     tigervnc-standalone-server python3-pip python3-websockify \
-    python3 git fuse libfuse2 xdotool
-#    virtualbox
+    python3 git fuse libfuse2 xdotool virtualbox
 RUN apt remove -y lxlock
 RUN apt remove -y light-locker xscreensaver-data xscreensaver 
 RUN apt remove -y mate-screensaver
