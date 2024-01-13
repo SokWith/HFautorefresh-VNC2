@@ -49,6 +49,8 @@ RUN tar -xzf /home/user/Desktop/myshell/chromeset.tar.gz -C /tmp/
 USER user
 # 复制 /tmp/.config/chromium 目录到 /home/user/.config/ 目录，保留文件属性和链接
 RUN cp -a /tmp/.config/chromium /home/user/.config/
+RUN mkdir -p /home/user/.config/autostart
+RUN cp /home/user/Desktop/myshell/clickbing.desktop /home/user/.config/autostart/
 
 ARG VNC_RESOLUTION
 CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:7860
