@@ -1,0 +1,49 @@
+FROM debian:sid
+RUN apt update
+RUN useradd -m -u 1000 user
+RUN apt install xfce4-terminal lxde aqemu sudo curl wget xdotool aria2 qemu-system-x86 htop chromium screen tigervnc-standalone-server python3-pip python3-websockify python3 git supervisor python3-flask -y
+RUN git clone https://github.com/novnc/noVNC.git noVNC
+RUN mkdir -p /home/user/.vnc
+
+# 添加微软的 GPG 密钥
+#RUN wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg
+
+# 添加微软的 Edge 仓库
+#RUN  sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list'
+
+# 安装 Edge 浏览器
+#RUN apt install -y microsoft-edge-stable
+
+
+ARG VNC_PWD
+ARG VNC_RESOLUTION
+RUN echo $VNC_PWD | vncpasswd -f > /home/user/.vnc/passwd
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
+
+
+ENV USER ${USER:-user}
+ENV USER_ID ${USER_ID:-1000}
+
+WORKDIR /app
+
+COPY . /app
+
+#RUN apt install -y curl wget supervisor git python3-flask
+
+
+RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared && \
+    chmod +x cloudflared
+
+
+RUN mkdir -p /var/run/supervisor /var/log/supervisor 
+RUN chown "${USER_ID}:${USER_ID}" /var/run/supervisor /var/log/supervisor
+RUN chmod 777 /tmp /home/user/.vnc
+
+#USER $USER
+
+EXPOSE 5000
+
+CMD /usr/bin/supervisord -c supervisor.conf
+
+#CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:3000
