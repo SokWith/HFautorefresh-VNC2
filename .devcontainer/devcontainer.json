@@ -1,0 +1,6 @@
+{
+    "name": "BingCCT",
+    "build": {
+      "dockerfile": "Dockerfile"
+    }
+  }
