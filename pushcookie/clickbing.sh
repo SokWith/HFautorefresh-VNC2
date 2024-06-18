@@ -54,6 +54,30 @@ wait_for() {
   sleep $seconds
 }
 
+screenshot_to_base64() {
+  # 检查是否提供了保存路径作为参数
+  if [ -z "$1" ]; then
+    echo "请提供一个保存截图的路径。"
+    return 1
+  fi
+
+  # 使用xdotool获取当前活动窗口的截图，并将其转换为base64编码
+  local current_time=$(date +%s) # 获取当前绝对时间
+  local filename="${current_time}.txt" # 创建文件名
+  local save_path="$1/$filename" # 完整的保存路径
+
+  # 截屏并保存为base64编码
+  xdotool key "Print" # 模拟按下“Print”键进行截屏
+  sleep 1 # 等待截屏命令执行
+  xclip -selection clipboard -t image/png -o | base64 > "$save_path"
+
+  echo "截图已保存为base64编码文本文件：$save_path"
+}
+
+# 使用示例：
+# screenshot_to_base64 "/path/to/save/directory"
+
+
 # Define an infinite loop
 while true
 do
