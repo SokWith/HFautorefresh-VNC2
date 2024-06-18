@@ -92,6 +92,8 @@ do
   move_and_click 80 210
   # Wait for 5 seconds
   wait_for 5
+  # 使用示例：
+  screenshot_to_base64 "/home/user/Desktop"
   # Load the second web page
   load_page "https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx"
   # Wait for 5 seconds
@@ -102,7 +104,8 @@ do
   type_and_enter "AI"
   # Wait for 5 seconds
   wait_for 5
-
+  # 使用示例：
+  screenshot_to_base64 "/home/user/Desktop"
   # Kill all chromium browser windows
   kill_chromium
   # Wait for 50 minutes
