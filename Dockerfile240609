@@ -39,11 +39,12 @@ RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/c
 RUN mkdir -p /var/run/supervisor /var/log/supervisor 
 RUN chown "${USER_ID}:${USER_ID}" /var/run/supervisor /var/log/supervisor
 RUN chmod 777 /tmp /home/user/.vnc
+RUN mv /usr/bin/vncserver /usr/bin/myncserver
 
 #USER $USER
 
 EXPOSE 5000
 
-CMD /usr/bin/supervisord -c supervisor.conf
+#CMD /usr/bin/supervisord -c supervisor.conf
 
-#CMD vncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:3000
+CMD myncserver -SecurityTypes VncAuth -rfbauth /home/user/.vnc/passwd -geometry $VNC_RESOLUTION && ./noVNC/utils/novnc_proxy --vnc localhost:5901 --listen 0.0.0.0:3000
